@@ -154,6 +154,11 @@ header p {
         gap: 10px; /* Espacio pequeño y controlado entre logo, título y texto */
     }
 
+    .logo-container h1 {
+        font-size: 1.2rem; /* Ajusta este número (1.2, 1.4, etc.) hasta que te guste */
+        margin: 0;
+    }
+
     .logo-container {
         flex-direction: column;
         justify-content: center;
