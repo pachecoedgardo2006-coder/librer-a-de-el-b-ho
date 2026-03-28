@@ -108,22 +108,31 @@ header p {
 /* --- MEDIA QUERY PARA MÓVILES (EL ARREGLO FINAL) --- */
 @media (max-width: 600px) {
     header {
-        flex-direction: column; /* Apila logo y mensaje */
+        flex-direction: column; 
         text-align: center;
+        padding: 15px;      /* Reducimos el relleno interno */
+        gap: 10px;          /* Menos espacio entre logo y texto */
+        margin-bottom: 20px; /* Menos separación con los libros */
     }
 
     .logo-container {
         flex-direction: column;
-        justify-content: center;
+        gap: 5px;           /* Pega más el búho al título */
         flex: none;
+    }
+
+    .logo-img {
+        height: 50px;       /* Logo más pequeño en móvil */
+    }
+
+    header h1 {
+        font-size: 1.3rem;  /* Título un poco más pequeño */
     }
 
     header p {
         text-align: center;
         max-width: 100%;
-    }
-
-    .grid {
-        grid-template-columns: 1fr; /* Una sola columna en celulares */
+        font-size: 0.85rem; /* Texto de bienvenida más compacto */
+        line-height: 1.3;
     }
 }
