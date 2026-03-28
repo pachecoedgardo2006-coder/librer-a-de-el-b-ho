@@ -181,3 +181,26 @@ header p {
         grid-template-columns: 1fr; /* Una sola columna en celulares */
     }
 }
+
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding: 0 20px;
+}
+
+#buscador {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 2px solid #b17900;
+    font-size: 1.1rem;
+    font-family: 'Lora', serif;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+#buscador:focus {
+    box-shadow: 0 4px 15px rgba(177, 121, 0, 0.3);
+    border-color: #6e3500;
+}
