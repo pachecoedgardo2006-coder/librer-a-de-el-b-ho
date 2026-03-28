@@ -23,37 +23,5 @@
         </main>
 
     <script src="libros.js"></script>
-
-    <script>
-        const contenedor = document.getElementById('contenedor-libros');
-
-        // Función para cargar los libros
-        function cargarCatalogo() {
-            // Limpiamos el contenedor por si acaso
-            contenedor.innerHTML = '';
-
-            catalogo.forEach(libro => {
-                const card = `
-                    <article class="card">
-                        <img src="${libro.imagen}" alt="${libro.titulo}" onerror="this.src='https://via.placeholder.com/300x450?text=Imagen+no+encontrada'">
-                        <div class="info">
-                            <h3>${libro.titulo}</h3>
-                            <p><strong>Autor:</strong> ${libro.autor}</p>
-                            <span class="precio">$${libro.precio} COP</span>
-                            <a href="https://wa.me/573003600635?text=Hola! Me interesa el libro: ${libro.titulo}" 
-                               target="_blank" 
-                               class="whatsapp-btn">
-                               Consultar disponibilidad
-                            </a>
-                        </div>
-                    </article>
-                `;
-                contenedor.innerHTML += card;
-            });
-        }
-
-        // Ejecutamos la función al cargar la página
-        document.addEventListener('DOMContentLoaded', cargarCatalogo);
-    </script>
 </body>
 </html>

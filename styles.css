@@ -101,9 +101,15 @@ header p {
 }
 
 .info h3 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+    min-height: 3.5em; /* Reserva espacio para títulos de 2 o 3 líneas */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* ESTO centra el texto horizontalmente */
+    text-align: center;      /* Refuerza el centrado */
+    font-size: 1.1rem;
+    margin-bottom: 10px;
     color: #2c3e50;
+    font-weight: 700;
 }
 
 .info p {
@@ -130,6 +136,7 @@ header p {
     border-radius: 8px;
     font-weight: 600;
     transition: background 0.3s;
+    margin-top: auto; /* Empuja el botón hacia abajo */
 }
 
 .whatsapp-btn:hover {
