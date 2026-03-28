@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Librería del Búho | Catálogo</title>
+    <link rel="icon" type="image/png" href="img/huho2.png">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="img/huho2.png" alt="Logo Librería del Búho" class="logo-img">
+            <h1>LIBRERIA DE EL BÚHO</h1>
+        </div>
+        <p>¡Bienvenido a Librería del Búho, donde cada página te espera para iluminar tu próxima gran aventura!</p>
+    </header>
+
+    <main class="grid" id="contenedor-libros">
+        </main>
+
+    <script src="libros.js"></script>
+
+    <script>
+        const contenedor = document.getElementById('contenedor-libros');
+
+        // Función para cargar los libros
+        function cargarCatalogo() {
+            // Limpiamos el contenedor por si acaso
+            contenedor.innerHTML = '';
+
+            catalogo.forEach(libro => {
+                const card = `
+                    <article class="card">
+                        <img src="${libro.imagen}" alt="${libro.titulo}" onerror="this.src='https://via.placeholder.com/300x450?text=Imagen+no+encontrada'">
+                        <div class="info">
+                            <h3>${libro.titulo}</h3>
+                            <p><strong>Autor:</strong> ${libro.autor}</p>
+                            <span class="precio">$${libro.precio} COP</span>
+                            <a href="https://wa.me/573052332619?text=Hola! Me interesa el libro: ${libro.titulo}" 
+                               target="_blank" 
+                               class="whatsapp-btn">
+                               Consultar disponibilidad
+                            </a>
+                        </div>
+                    </article>
+                `;
+                contenedor.innerHTML += card;
+            });
+        }
+
+        // Ejecutamos la función al cargar la página
+        document.addEventListener('DOMContentLoaded', cargarCatalogo);
+    </script>
+</body>
+</html>
