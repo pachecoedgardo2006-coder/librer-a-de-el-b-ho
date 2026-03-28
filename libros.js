@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h3>${titulo}</h3>
                             <p><strong>Autor:</strong> ${autor}</p>
                             <span class="precio">${precio}</span>
-                            <a href="https://wa.me/573003600635?text=Me interesa: ${titulo}" target="_blank" class="whatsapp-btn">Consultar</a>
+                            <a href="https://wa.me/573003600635?text=Hola Buenas, me gustaría saber si tiene el libro: ${titulo}, dispoponible en la tienda de Librería del Búho" target="_blank" class="whatsapp-btn">Consultar</a>
                         </div>
                     `;
                     fragmento.appendChild(article);
