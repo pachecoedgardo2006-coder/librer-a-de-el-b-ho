@@ -19,6 +19,9 @@ body {
 /* --- HEADER REPARADO --- */
 header {
     display: flex;
+    height: auto;
+    min-width: fit-content;
+    padding-bottom: 20px;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap; /* Permite que los elementos bajen en pantallas pequeñas */
@@ -108,8 +111,11 @@ header p {
 /* --- MEDIA QUERY PARA MÓVILES (EL ARREGLO FINAL) --- */
 @media (max-width: 600px) {
     header {
-        flex-direction: column; /* Apila logo y mensaje */
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Empuja todo hacia arriba */
+        align-items: center;
+        gap: 10px; /* Espacio pequeño y controlado entre logo, título y texto */
     }
 
     .logo-container {
