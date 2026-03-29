@@ -92,10 +92,19 @@ header p {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.548);
 }
 
+/* --- REEMPLAZA POR ESTO --- */
 .card img {
+    /* 1. Definimos un contenedor exacto y uniforme para todas las portadas */
     width: 100%;
-    height: 320px;
-    object-fit: cover;
+    height: 350px; /* He subido un poco la altura para que las portadas tengan más aire */
+    
+    /* 2. LA SOLUCIÓN MÁGICA: Muestra la imagen COMPLETA sin cortar nada */
+    object-fit: contain;
+    
+    /* 3. Estilo adicional: Un fondo suave para rellenar los espacios si la portada es estrecha */
+    background-color: #f9f9f9;
+    padding: 10px; /* Un pequeño margen interno para que la imagen respire */
+    display: block;
 }
 
 .info {
