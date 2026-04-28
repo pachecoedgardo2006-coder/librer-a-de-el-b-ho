@@ -3,28 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Librería del Búho | Catálogo</title>
+    <title>Librería del Búho | Tu Refugio de Libros</title>
     <link rel="icon" type="image/png" href="img/huho2.png">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <header>
-        <div class="logo-container">
-            <img src="img/huho2.png" alt="Logo Librería del Búho" class="logo-img">
-            <h1>LIBRERIA DE EL BÚHO</h1>
-        </div>
-        <p>¡Bienvenido a Librería del Búho, donde cada página te espera para iluminar tu próxima gran aventura!</p>
-    
-    </header>
-    <div class="search-container">
-    <input type="text" id="buscador" placeholder="Busca por título o autor...">
-    </div>
-    <main class="grid" id="contenedor-libros">
-        </main>
+    <!-- ===== NAV ===== -->
+    <nav>
+        <a href="#inicio" class="nav-logo">
+            <img src="img/huho2.png" alt="Logo">
+            <span>Librería del Búho</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="https://wa.me/573003600635" target="_blank" class="nav-cta">📲 WhatsApp</a></li>
+        </ul>
+        <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
 
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#inicio" onclick="closeMobile()">Inicio</a>
+        <a href="#catalogo" onclick="closeMobile()">Catálogo</a>
+        <a href="#nosotros" onclick="closeMobile()">Nosotros</a>
+        <a href="#contacto" onclick="closeMobile()">Contacto</a>
+        <a href="https://wa.me/573003600635" target="_blank">📲 Escríbenos por WhatsApp</a>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+        <div class="hero-text">
+            <span class="hero-eyebrow">📚 Tu librería de confianza en Colombia</span>
+            <h1>Cada libro,<br>una nueva <em>aventura</em><br>que te espera.</h1>
+            <p class="hero-desc">Descubre cientos de títulos cuidadosamente seleccionados. Literatura clásica, fantasía, desarrollo personal y mucho más. Consulta por WhatsApp y recibe tu libro.</p>
+            <div class="hero-btns">
+                <a href="#catalogo" class="btn-primary">Ver catálogo completo</a>
+                <a href="#contacto" class="btn-secondary">Contáctanos</a>
+            </div>
+        </div>
+        <div class="hero-visual" id="heroVisual">
+            <!-- Las portadas se inyectan desde JS -->
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+        <div class="stat">
+            <div class="stat-num" id="statLibros">...</div>
+            <div class="stat-label">Libros disponibles</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">+20</div>
+            <div class="stat-label">Géneros literarios</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">📲</div>
+            <div class="stat-label">Consulta por WhatsApp</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Garantía de calidad</div>
+        </div>
+    </div>
+
+    <!-- ===== CATEGORÍAS ===== -->
+    <section class="section categorias-bg fade-in">
+        <div class="section-header">
+            <span class="section-eyebrow">Explora por género</span>
+            <h2 class="section-title">Encuentra tu próxima <em>lectura favorita</em></h2>
+            <p class="section-sub">Tenemos una colección variada para todos los gustos y edades.</p>
+        </div>
+        <div class="categorias-grid" id="categoriasGrid">
+            <!-- Se generan dinámicamente -->
+        </div>
+    </section>
+
+    <!-- ===== CATÁLOGO ===== -->
+    <section class="section catalogo-bg" id="catalogo">
+        <div class="section-header fade-in">
+            <span class="section-eyebrow">Nuestro catálogo</span>
+            <h2 class="section-title">Todos nuestros <em>libros</em></h2>
+            <p class="section-sub">Busca por título o autor y consulta disponibilidad al instante.</p>
+        </div>
+        <div class="search-container fade-in">
+            <input type="text" id="buscador" placeholder="Buscar por título o autor…" autocomplete="off">
+            <span class="search-icon">🔍</span>
+        </div>
+        <div class="filtros-bar fade-in" id="filtrosBar">
+            <button class="filtro-btn active" data-cat="todos">Todos</button>
+        </div>
+        <main class="grid" id="contenedor-libros">
+            <div class="loader-wrap">
+                <div class="loader"></div>
+                <p style="color:var(--gris);font-family:'Lora',serif">Cargando catálogo…</p>
+            </div>
+        </main>
+        <div class="no-resultados" id="noResultados">
+            <p>🦉 No encontramos resultados</p>
+            <span>Intenta con otro título, autor o categoría.</span>
+        </div>
+    </section>
+
+    <!-- ===== NOSOTROS ===== -->
+    <section class="section nosotros-bg" id="nosotros">
+        <div class="nosotros-inner fade-in">
+            <div class="nosotros-img-wrap">
+                <div class="nosotros-frame">
+                    🦉
+                    <div class="nosotros-badge">
+                        <strong>+5</strong>
+                        <span>años de pasión lectora</span>
+                    </div>
+                </div>
+            </div>
+            <div class="nosotros-text">
+                <h2>Somos más que<br>una <em>librería</em></h2>
+                <p>En Librería del Búho creemos que los libros tienen el poder de transformar vidas. Por eso seleccionamos cada título con cuidado, pensando en lectores de todas las edades y gustos.</p>
+                <p>Nacimos con una misión simple: acercar los mejores libros a las personas, con un servicio cálido, honesto y siempre disponible para resolver tus dudas.</p>
+                <ul class="valores-list">
+                    <li>
+                        <span class="valor-icon">📖</span>
+                        <div><strong>Selección cuidadosa</strong><br><span style="color:var(--gris);font-size:.88rem">Cada libro en nuestro catálogo pasa por un proceso de selección.</span></div>
+                    </li>
+                    <li>
+                        <span class="valor-icon">💬</span>
+                        <div><strong>Atención personalizada</strong><br><span style="color:var(--gris);font-size:.88rem">Te asesoramos para encontrar el libro perfecto para ti.</span></div>
+                    </li>
+                    <li>
+                        <span class="valor-icon">🚀</span>
+                        <div><strong>Consulta al instante</strong><br><span style="color:var(--gris);font-size:.88rem">Respuesta rápida por WhatsApp sobre disponibilidad y precios.</span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CÓMO FUNCIONA ===== -->
+    <section class="section como-bg fade-in">
+        <div class="section-header">
+            <span class="section-eyebrow">Fácil y rápido</span>
+            <h2 class="section-title">¿Cómo <em>comprar</em>?</h2>
+            <p class="section-sub">En pocos pasos tienes tu libro favorito.</p>
+        </div>
+        <div class="pasos-grid">
+            <div class="paso">
+                <div class="paso-num">1</div>
+                <h3>Explora el catálogo</h3>
+                <p>Navega nuestra colección, filtra por género o busca tu libro favorito en el buscador.</p>
+            </div>
+            <div class="paso">
+                <div class="paso-num">2</div>
+                <h3>Pulsa "Consultar"</h3>
+                <p>Haz clic en el botón de cualquier libro para abrir WhatsApp con el mensaje listo.</p>
+            </div>
+            <div class="paso">
+                <div class="paso-num">3</div>
+                <h3>Confirmamos disponibilidad</h3>
+                <p>Te respondemos rápidamente con disponibilidad, precio final y opciones de entrega.</p>
+            </div>
+            <div class="paso">
+                <div class="paso-num">4</div>
+                <h3>¡Disfruta tu libro!</h3>
+                <p>Acordamos la entrega y en poco tiempo el libro estará en tus manos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS ===== -->
+    <section class="section testi-bg fade-in">
+        <div class="section-header">
+            <span class="section-eyebrow">Nuestros lectores</span>
+            <h2 class="section-title">Lo que dicen <em>nuestros clientes</em></h2>
+        </div>
+        <div class="testi-grid">
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Encontré libros que tenía meses buscando. La atención fue increíble y me llegó todo en perfectas condiciones. Sin duda volvería a comprar aquí."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">👩</div>
+                    <div>
+                        <div class="testi-name">María C.</div>
+                        <div class="testi-role">Lectora habitual</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Precios muy accesibles y una variedad impresionante. Me recomendaron libros según mis gustos y acertaron al 100%. ¡Los mejores!"</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">👨</div>
+                    <div>
+                        <div class="testi-name">Carlos M.</div>
+                        <div class="testi-role">Fanático del thriller</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Compré varios libros para regalo y quedaron perfectos. La comunicación por WhatsApp fue super fluida. Muy recomendado para toda la familia."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">👩‍🦱</div>
+                    <div>
+                        <div class="testi-name">Laura P.</div>
+                        <div class="testi-role">Mamá lectora</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section class="section contacto-bg" id="contacto">
+        <div class="contacto-inner">
+            <div class="contacto-info fade-in">
+                <h2>Hablemos,<br><em>estamos aquí</em><br>para ayudarte</h2>
+                <p>¿Tienes dudas sobre algún libro? ¿Buscas algo en especial? Escríbenos por cualquiera de nuestros canales y te responderemos lo antes posible.</p>
+                <div class="contacto-canales">
+                    <a class="canal" href="https://wa.me/573003600635" target="_blank">
+                        <span class="canal-icon">💬</span>
+                        <div>
+                            <div class="canal-title">WhatsApp</div>
+                            <div class="canal-sub">+57 300 360 0635 · Respuesta rápida</div>
+                        </div>
+                    </a>
+                    <a class="canal" href="mailto:libreriadelbuho@gmail.com">
+                        <span class="canal-icon">📧</span>
+                        <div>
+                            <div class="canal-title">Correo electrónico</div>
+                            <div class="canal-sub">libreriadelbuho@gmail.com</div>
+                        </div>
+                    </a>
+                    <a class="canal" href="#" target="_blank">
+                        <span class="canal-icon">📸</span>
+                        <div>
+                            <div class="canal-title">Instagram</div>
+                            <div class="canal-sub">@libreriadelbuho</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="contacto-form fade-in" id="formWrap">
+                <p class="form-title">Envíanos un mensaje</p>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="fNombre" placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="fTelefono" placeholder="300 000 0000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>¿Qué libro buscas?</label>
+                    <input type="text" id="fLibro" placeholder="Título o género">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea id="fMensaje" placeholder="Escribe tu consulta aquí…"></textarea>
+                </div>
+                <button class="btn-form" id="btnEnviar">Enviar por WhatsApp 📲</button>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="fs-icon">✅</div>
+                    <p>¡Mensaje enviado!</p>
+                    <span>Abrimos WhatsApp con tu consulta lista. Te responderemos pronto.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <div class="cta-banner fade-in">
+        <h2>¿Listo para tu próxima <em>gran lectura</em>?</h2>
+        <p>Cientos de libros te esperan. Consulta disponibilidad ahora mismo.</p>
+        <a href="#catalogo" class="btn-primary">Ver catálogo completo</a>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="img/huho2.png" alt="Logo Librería del Búho">
+                <h3>Librería del Búho</h3>
+                <p>Tu refugio literario de confianza. Llevamos historias a cada rincón de Colombia con pasión, calidad y un servicio cercano.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="https://wa.me/573003600635" target="_blank">📲 WhatsApp</a></li>
+                    <li><a href="mailto:libreriadelbuho@gmail.com">📧 Email</a></li>
+                    <li><a href="#">📸 Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Librería del Búho · Hecho con ❤️ y mucha lectura · Colombia
+        </div>
+    </footer>
     <script src="libros.js"></script>
 </body>
 </html>
