@@ -4,6 +4,9 @@
 let todosLosLibros  = [];
 let categoriaActiva = 'todos';
 let terminoBusqueda = '';
+let paginaActual = 1;
+const librosPorPagina = 8;
+
 
 const WHATSAPP = '573003600635';
 
@@ -199,13 +202,21 @@ function renderizarLibros() {
     if (filtrados.length === 0) {
         contenedor.innerHTML = '';
         noRes.style.display = 'block';
+        document.getElementById('paginacion').innerHTML = '';
         return;
     }
 
     noRes.style.display = 'none';
+
+    // LÓGICA DE PAGINACIÓN
+    const totalPaginas = Math.ceil(filtrados.length / librosPorPagina);
+    const inicio = (paginaActual - 1) * librosPorPagina;
+    const fin = inicio + librosPorPagina;
+    const librosAMostrar = filtrados.slice(inicio, fin);
+
     const frag = document.createDocumentFragment();
 
-    filtrados.forEach(l => {
+    librosAMostrar.forEach(l => {
         const tLimpio = l.titulo.split('(')[0].split(':')[0].trim();
         const backup  = `https://covers.openlibrary.org/b/title/${encodeURIComponent(tLimpio)}-M.jpg?default=false`;
         const msg     = `Hola Buenas, me gustaría saber si tiene el libro: ${l.titulo}, está disponible en la tienda de Librería del Búho`;
@@ -229,6 +240,8 @@ function renderizarLibros() {
 
     contenedor.innerHTML = '';
     contenedor.appendChild(frag);
+    
+    actualizarControlesPaginacion(totalPaginas);
 }
 
 // =============================================
@@ -305,3 +318,51 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 // INIT
 // =============================================
 cargarCatalogo();
+
+
+// =============================================
+// FUNCION ACTUALIZAR CONTROLES
+// =============================================
+function actualizarControlesPaginacion(totalPaginas) {
+    const contenedorPaginacion = document.getElementById('paginacion');
+    if (!contenedorPaginacion) return;
+
+    let html = '';
+    
+    // Botón Anterior
+    html += `
+        <button class="pag-btn ${paginaActual === 1 ? 'disabled' : ''}" 
+                onclick="cambiarPagina(${paginaActual - 1})" 
+                ${paginaActual === 1 ? 'disabled' : ''}>
+            &laquo; Ant.
+        </button>
+    `;
+
+    // Números de Página
+    for (let i = 1; i <= totalPaginas; i++) {
+        html += `
+            <button class="pag-btn ${i === paginaActual ? 'active' : ''}" 
+                    onclick="cambiarPagina(${i})">
+                ${i}
+            </button>
+        `;
+    }
+
+    // Botón Siguiente
+    html += `
+        <button class="pag-btn ${paginaActual === totalPaginas ? 'disabled' : ''}" 
+                onclick="cambiarPagina(${paginaActual + 1})" 
+                ${paginaActual === totalPaginas ? 'disabled' : ''}>
+            Sig. &raquo;
+        </button>
+    `;
+
+    contenedorPaginacion.innerHTML = html;
+}
+
+// Función auxiliar para cambiar de página y volver arriba del catálogo
+function cambiarPagina(nuevaPagina) {
+    paginaActual = nuevaPagina;
+    renderizarLibros();
+    document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+}
