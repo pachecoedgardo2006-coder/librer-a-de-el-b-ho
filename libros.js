@@ -192,10 +192,10 @@ function renderizarLibros() {
     }
 
     if (terminoBusqueda) {
-        const t = terminoBusqueda.toLowerCase();
+        const t = normalizarTexto(terminoBusqueda);
         filtrados = filtrados.filter(l =>
-            l.titulo.toLowerCase().includes(t) ||
-            l.autor.toLowerCase().includes(t)
+            normalizarTexto(l.titulo).includes(t) ||
+            normalizarTexto(l.autor).includes(t)
         );
     }
 
@@ -245,16 +245,28 @@ function renderizarLibros() {
 }
 
 // =============================================
-// BUSCADOR
+// BUSCADOR OPTIMIZADO
 // =============================================
 document.getElementById('buscador').addEventListener('input', e => {
-    terminoBusqueda = e.target.value.trim();
+    // Normalizamos el término de búsqueda: minúsculas y sin espacios laterales
+    terminoBusqueda = e.target.value.toLowerCase().trim();
+    
+    // Al buscar, reiniciamos a la primera página para evitar que el buscador 
+    // se quede en una página vacía si hay pocos resultados
+    paginaActual = 1; 
+
     if (terminoBusqueda) {
         categoriaActiva = 'todos';
         actualizarFiltrosUI();
     }
     renderizarLibros();
 });
+
+// Función auxiliar para normalizar texto (opcional pero recomendada)
+// Esto permite que si buscas "magia" encuentre "Mágia"
+function normalizarTexto(texto) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
 
 // Filtro "Todos"
 document.querySelector('.filtro-btn[data-cat="todos"]').addEventListener('click', () => {
